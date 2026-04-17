@@ -1,0 +1,22 @@
+title: Suspicious PowerShell Encoded Command Execution
+id: 829de487-1f81-4ac0-acd6-5f17a7aadcdf
+status: experimental
+description: Detects PowerShell executing base64-encoded commands, commonly used to obfuscate malicious payloads
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\powershell.exe'
+        CommandLine|contains: 
+            - '-EncodedCommand'
+            - '-enc'
+            - '-e'
+    condition: selection
+falsepositives:
+    - Legitimate admin scripts using encoded commands
+    - Software installers
+level: medium
+tags:
+    - attack.execution
+    - attack.t1059.001

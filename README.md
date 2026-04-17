@@ -8,7 +8,7 @@ Rules are based on MITRE ATT&CK documentation and public threat intel. No propri
 
 | Technique | ID | Rule | Type |
 |-----------|-----|------|------|
-| — | — | — | — |
+| PowerShell encoded command | [T1059.001](https://attack.mitre.org/techniques/T1059/001/) | [sigma/windows/execution/proc_creation_ps_encoded_command.yml](sigma/windows/execution/proc_creation_ps_encoded_command.yml) | Sigma |
 
 ## Structure
 
