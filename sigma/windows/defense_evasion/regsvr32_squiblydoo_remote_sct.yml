@@ -1,0 +1,32 @@
+title: Defense Evasion Regsvr32 Squiblydoo
+id: 8a24c0fc-04e3-46e3-b8bd-e74b2809ad63
+status: experimental
+description: This alert catches Defense Evasion utilizing Regsvr32, particularly Squiblydoo abuse patterns.
+references:
+  - https://attack.mitre.org/techniques/T1218/
+  - https://lolbas-project.github.io/lolbas/Binaries/Regsvr32/
+author: rainbow/gloambit
+date: 2026/04/20
+tags:
+  - attack.defense-evasion
+  - attack.execution
+  - attack.t1218
+  - attack.t1218.010
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_img:
+    Image|endswith: '\regsvr32.exe'
+  selection_suspicious:
+    CommandLine|contains:
+      - 'scrobj.dll'
+      - '/i:http'
+      - '/i:https'
+      - '/i:ftp'
+  condition: selection_img and selection_suspicious
+falsepositives:
+  - Printer driver installations.
+  - Citrix/RDP/VDI provisioning scripts.
+  - Office COM add-in registration during install.
+level: high
